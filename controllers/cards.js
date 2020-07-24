@@ -12,7 +12,7 @@ module.exports.createCard = (req, res) => {
   try {
     Card.create({ name, link, owner: req.user._id })
       .then((card) => res.send({ data: card }))
-      .catch((err) => res.status(404).send({ error: err.message }));
+      .catch((err) => res.status(500).send({ error: err.message }));
   } catch (err) {
     res.status(500).send({ message: 'Произошла ошибка' });
   }
@@ -22,7 +22,7 @@ module.exports.deleteCard = (req, res) => {
   try {
     Card.findByIdAndDelete(req.params.cardId).orFail(new Error(`Карточка c id: ${req.params.cardId} не найдена`))
       .then((card) => res.send({ data: card }))
-      .catch((err) => res.status(404).send({ error: err.message }));
+      .catch((err) => res.status(500).send({ error: err.message }));
   } catch (err) {
     res.status(500).send({ message: 'Произошла ошибка' });
   }
